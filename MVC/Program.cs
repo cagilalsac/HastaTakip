@@ -8,6 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("Db");
 #endregion
 
 #region IoC Container
+// Autofac, Ninject
 builder.Services.AddDbContext<Db>(options => options.UseSqlServer(connectionString));
 #endregion
 

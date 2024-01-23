@@ -9,7 +9,7 @@ namespace DataAccess.Contexts
         public DbSet<Doktor> Doktorlar { get; set; }
         public DbSet<DoktorHasta> DoktorHastalar { get; set; }
         public DbSet<Hasta> Hastalar { get; set; }
-        public DbSet<Klinik> Klinik { get; set; }
+        public DbSet<Klinik> Klinikler { get; set; }
 
         public Db(DbContextOptions options) : base(options)
         {
