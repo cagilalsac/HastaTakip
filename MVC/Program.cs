@@ -1,3 +1,4 @@
+using Business.Services;
 using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("Db");
 
 #region IoC Container
 // Autofac, Ninject
+// Unable to resolve service hatalarý burada çözümlenir
 builder.Services.AddDbContext<Db>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IKlinikService, KlinikService>();
 #endregion
 
 // Add services to the container.
