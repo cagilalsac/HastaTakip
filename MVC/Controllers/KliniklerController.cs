@@ -23,6 +23,13 @@ namespace MVC.Controllers
             return View(klinikList);
         }
 
+        // GET: Klinikler/GetJson
+        public JsonResult GetListJson()
+        {
+            var klinikler = _klinikService.Query().ToList();
+            return Json(klinikler);
+        }
+
         // GET: Klinikler/Details/5
         public IActionResult Details(int id)
         {
@@ -46,8 +53,12 @@ namespace MVC.Controllers
             // önce kayıtlar where ile filtrelenir, dönen koleksiyon sonucu üzerinden tek bir kayıt dönülür
             //KlinikModel klinik = _klinikService.Query().Where(k => k.Id == id).SingleOrDefault();
 
+            // 1. yöntem:
             // koşula göre bulduğu tek kaydı döner, eğer kaydı bulamazsa null döner, birden çok kayıt bulursa exception fırlatır
-            KlinikModel klinik = _klinikService.Query().SingleOrDefault(k => k.Id == id); // TODO: Add get item service logic here
+            //KlinikModel klinik = _klinikService.Query().SingleOrDefault(k => k.Id == id); // TODO: Add get item service logic here
+
+            // 2. yöntem:
+            KlinikModel klinik = _klinikService.GetItem(id);
 
             if (klinik == null)
             {
@@ -56,7 +67,14 @@ namespace MVC.Controllers
             return View(klinik); // 200 (Ok) HTTP Status Code
         }
 
+        public IActionResult GetItemJson(int id)
+        {
+            var klinik = _klinikService.Query().SingleOrDefault(k => k.Id == id);
+            return Json(klinik);
+        }
+
         // GET: Klinikler/Create
+        //[HttpGet] // default: GET
         public IActionResult Create()
         {
             // TODO: Add get related items service logic here to set ViewData if necessary

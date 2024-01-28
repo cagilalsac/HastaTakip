@@ -3,7 +3,7 @@
 @*Model namespace using directive should be added to _ViewImports.cshtml.*@
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Yeni Klinik";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -12,40 +12,100 @@
 <hr />
 <div class="row">
     <div class="col-12">
-        <form asp-action="Create">
-		@Html.AntiForgeryToken()
-            <div asp-validation-summary="All" class="text-danger"></div>
+		@* HTML *@
+		@* 1. yöntem: *@
+		@* <form action="/Klinikler/Create" method="get"> *@
+		@* 2. yöntem: *@
+		@* <form action="/Klinikler/Create">*@
+		@* default method: get *@
+		@* 3. yöntem: *@
+		@* <form action="/Klinikler/Create" method="post"> *@
+
+		@* Tag Helper *@
+		@* 1. yöntem: *@
+        @* <form asp-action="Create" asp-controller="Klinikler" method="post"> *@
+		@* 2. yöntem: *@
+		@* <form asp-action="Create"> *@
+		@* default method: post *@
+
+		@* HTML Helper *@
+		@* 1. yöntem: *@
+		@* @using (Html.BeginForm("Create", "Klinikler", FormMethod.Post)) *@
+		@* 2. yöntem: *@
+		@* @using (Html.BeginForm("Create"))  *@
+		@* default method: post *@
+		@* 3. yöntem: *@
+		@using (Html.BeginForm())
+		{
+
+			@Html.AntiForgeryToken()
+
+			@* HTML *@
+			@* <div class="text-danger">Modeldeki Data Annotation validasyon mesajları</div> *@
+			@* Tag Helper *@
+            @* <div asp-validation-summary="All" class="text-danger"></div> *@
+			@* HTML Helper *@
+			@Html.ValidationSummary(false, null, new { @class = "text-danger" })
+
             <div class="row mb-3">
-                <label asp-for="Adi" class="col-2 col-form-label"></label>
+
+				@* HTML *@
+				@* <label for="Adi" class="col-2 col-form-label">Adı</label> *@
+				@* Tag Helper *@
+                @* <label asp-for="Adi" class="col-2 col-form-label"></label> *@
+				@* HTML Helper *@
+				@Html.LabelFor(model => model.Adi, new { @class = "col-2 col-form-label" })
+
 				<div class="col-5">
-					<input asp-for="Adi" class="form-control" />
-					<span asp-validation-for="Adi" class="text-danger"></span>
+
+					@* HTML *@
+					@* <input type="text" name="Adi" class="form-control" id="Adi" /> *@
+					@* Tag Helper *@
+					@* <input asp-for="Adi" class="form-control" /> *@@* name="Adi" *@
+					@* HTML Helper *@
+					@Html.TextBoxFor(model => model.Adi, new { @class = "form-control" })
+
+					@* HTML *@
+					@* <span class="text-danger">Modeldeki Adi özelliği için Data Annotation validasyon mesajı</span> *@
+					@* Tag Helper *@
+					@* <span asp-validation-for="Adi" class="text-danger"></span> *@
+					@* HTML Helper *@
+					@Html.ValidationMessageFor(model => model.Adi, null, new { @class = "text-danger" })
+
 				</div>
             </div>
             <div class="row mb-3">
                 <label asp-for="Aciklamasi" class="col-2 col-form-label"></label>
 				<div class="col-5">
-					<input asp-for="Aciklamasi" class="form-control" />
+
+					@* HTML *@
+					@* <textarea name="Aciklamasi" id="Aciklamasi" class="form-control" rows="3"></textarea> *@
+					@* Tag Helper *@
+					@* <textarea asp-for="Aciklamasi" class="form-control" rows="3"></textarea> *@@* name="Aciklamasi" *@
+					@* HTML Helper *@
+					@Html.TextAreaFor(model => model.Aciklamasi, new { rows = "3", @class= "form-control" })
+
 					<span asp-validation-for="Aciklamasi" class="text-danger"></span>
 				</div>
             </div>
             <div class="row mb-3">
-                <label asp-for="Guid" class="col-2 col-form-label"></label>
-				<div class="col-5">
-					<input asp-for="Guid" class="form-control" />
-					<span asp-validation-for="Guid" class="text-danger"></span>
-				</div>
-            </div>
-            <div class="row mb-3">
 				<div class="offset-2 col-5">
-					<input type="submit" value="Save" class="btn btn-primary" />
+
+					@* 1. yöntem: *@
+					@* <input type="submit" value="Kaydet" class="btn btn-primary" /> *@
+					@* 2. yöntem: *@
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+
 					&nbsp;&nbsp;
-                    <button type="reset" class="btn btn-outline-primary">Reset</button>
+                    <button type="reset" class="btn btn-outline-primary">Temizle</button>
 					&nbsp;&nbsp;
-					<a asp-action="Index">Back to List</a>
+					<a asp-action="Index">Listeye Dön</a>
 				</div>
             </div>
-        </form>
+
+        @* </form> *@
+		}
+
     </div>
 </div>
 

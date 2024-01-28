@@ -6,32 +6,57 @@
     ViewData["Title"] = "Klinik Detayı";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container">
 
-<div>
-    <h4>Klinik</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Adi)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Adi)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Aciklamasi)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Aciklamasi)
-        </dd>
-    </dl>
+    <h1>@ViewData["Title"]</h1>
+
+    <div>
+        <h4>Klinik</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.Adi)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.Adi)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.Aciklamasi)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.Aciklamasi)
+            </dd>
+        </dl>
+
+        @if (Model.DoktorSayisiOutput > 0)
+        {
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.DoktorSayisiOutput)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.DoktorSayisiOutput)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.DoktorlarOutput)
+                </dt>
+                <dd class="col-10">
+                    @Html.Raw(Model.DoktorlarOutput)
+                </dd>
+            </dl>
+        }
+
+        <a asp-action="GetItemJson" asp-route-id="@Model.Id" target="_blank">Klinik JSON</a>
+
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>&nbsp;|&nbsp;
+        <a asp-action="Index">Listeye Dön</a>
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>&nbsp;|&nbsp;
-    <a asp-action="Index">Listeye Dön</a>
-</div>
-
-
 
