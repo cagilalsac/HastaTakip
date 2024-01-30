@@ -10,6 +10,11 @@
 
     <h1>@ViewData["Title"]</h1>
 
+    @if (TempData["Mesaj"] != null)
+    {
+        <p class="text-danger">@TempData["Mesaj"]</p>
+    }
+
     <div>
         <h4>Klinik</h4>
         <hr />

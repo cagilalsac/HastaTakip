@@ -1,6 +1,7 @@
 ﻿#nullable disable
 using Business.Models;
 using Business.Services;
+using DataAccess.Results.Bases;
 using Microsoft.AspNetCore.Mvc;
 
 //Generated from Custom Template.
@@ -19,7 +20,10 @@ namespace MVC.Controllers
         // GET: Klinikler
         public IActionResult Index()
         {
-            List<KlinikModel> klinikList = _klinikService.Query().ToList(); // TODO: Add get collection service logic here
+            // 1. yöntem:
+            //List<KlinikModel> klinikList = _klinikService.Query().ToList(); // TODO: Add get collection service logic here
+            // 2. yöntem: yeni eklenen GetList methoduna göre
+            List<KlinikModel> klinikList = _klinikService.GetList();
             return View(klinikList);
         }
 
@@ -31,7 +35,7 @@ namespace MVC.Controllers
         }
 
         // GET: Klinikler/Details/5
-        public IActionResult Details(int id)
+        public IActionResult Details(int id) // route value
         {
             // koşula göre bulduğu ilk kaydı döner, eğer kaydı bulamazsa exception fırlatır
             //KlinikModel klinik = _klinikService.Query().First(k => k.Id == id);
@@ -91,7 +95,25 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: Add insert service logic here
-                return RedirectToAction(nameof(Index));
+                Result result = _klinikService.Add(klinik);
+                if (result.IsSuccessful)
+                {
+                    TempData["Mesaj"] = result.Message;
+
+                    // 1. yöntem:
+                    //return RedirectToAction("Index");
+                    // 2. yöntem:
+                    //return RedirectToAction(nameof(Index));
+                    // 3. yöntem:
+                    return RedirectToAction(nameof(Details), new { id = klinik.Id });
+                }
+
+                // 1. yöntem:
+                //ViewData["Mesaj"] = result.Message;
+                // 2. yöntem:
+                //ViewBag.Mesaj = result.Message;
+                // 3. yöntem:
+                ModelState.AddModelError("", result.Message); // view -> validation summary
             }
             // TODO: Add get related items service logic here to set ViewData if necessary
             return View(klinik);
@@ -100,7 +122,7 @@ namespace MVC.Controllers
         // GET: Klinikler/Edit/5
         public IActionResult Edit(int id)
         {
-            KlinikModel klinik = null; // TODO: Add get item service logic here
+            KlinikModel klinik = _klinikService.Query().SingleOrDefault(k => k.Id == id); // TODO: Add get item service logic here
             if (klinik == null)
             {
                 return NotFound();
@@ -119,7 +141,13 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: Add update service logic here
-                return RedirectToAction(nameof(Index));
+                Result result = _klinikService.Update(klinik);
+                if (result.IsSuccessful)
+                {
+                    TempData["Mesaj"] = result.Message;
+                    return RedirectToAction(nameof(Details), new { id = klinik.Id });
+                }
+                ModelState.AddModelError("", result.Message); // view -> validation summary
             }
             // TODO: Add get related items service logic here to set ViewData if necessary
             return View(klinik);
@@ -128,7 +156,7 @@ namespace MVC.Controllers
         // GET: Klinikler/Delete/5
         public IActionResult Delete(int id)
         {
-            KlinikModel klinik = null; // TODO: Add get item service logic here
+            KlinikModel klinik = _klinikService.GetItem(id); // TODO: Add get item service logic here
             if (klinik == null)
             {
                 return NotFound();
@@ -142,6 +170,8 @@ namespace MVC.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             // TODO: Add delete service logic here
+            Result result = _klinikService.Delete(id);
+            TempData["Mesaj"] = result.Message;
             return RedirectToAction(nameof(Index));
         }
 	}

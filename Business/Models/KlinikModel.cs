@@ -9,8 +9,8 @@ namespace Business.Models
     public class KlinikModel : Record
     {
         #region Entity Özellikleri
-        [Required]
-        [StringLength(200)]
+        [Required(ErrorMessage = "{0} zorunludur!")]
+        [StringLength(200, ErrorMessage = "{0} maksimum {1} karakter olmalıdır!")]
         [DisplayName("Adı")]
         public string Adi { get; set; }
 

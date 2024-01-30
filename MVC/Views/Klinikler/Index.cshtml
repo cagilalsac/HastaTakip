@@ -15,6 +15,11 @@
 <div class="container">
 
     <h1>@ViewData["Title"]</h1>
+    
+    @if (TempData["Mesaj"] != null)
+    {
+        <p class="text-danger">@TempData["Mesaj"]</p>
+    }
 
     <p>
         @* 1) HTML: *@
