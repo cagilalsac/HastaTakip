@@ -14,6 +14,8 @@ var connectionString = builder.Configuration.GetConnectionString("Db");
 builder.Services.AddDbContext<Db>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IKlinikService, KlinikService>();
+builder.Services.AddScoped<IBransService, BransService>();
+builder.Services.AddScoped<IDoktorService, DoktorService>();
 #endregion
 
 // Add services to the container.

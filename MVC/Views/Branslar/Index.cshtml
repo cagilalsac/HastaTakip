@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BransModel>
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Branşlar";
+}
+
+<div class="container">
+
+	<h1>@ViewData["Title"]</h1>
+
+	@if (TempData["Mesaj"] != null)
+	{
+		<p class="text-danger">@TempData["Mesaj"]</p>
+	}
+
+	<p>
+		<a asp-action="Create">Yeni Branş</a>
+	</p>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Adi)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.DoktorlarOutput)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model) {
+					<tr>
+						<td class="w-50">
+							@Html.DisplayFor(modelItem => item.Adi)
+						</td>
+						<td>
+							@Html.Raw(item.DoktorlarOutput)
+						</td>
+						<td class="text-end">
+							<a asp-action="Details" asp-route-id="@item.Id">Detay</a>&nbsp;|&nbsp;
+							<a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>&nbsp;|&nbsp;
+							<a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+						</td>
+					</tr>
+			}
+		</tbody>
+	</table>
+
+</div>
+

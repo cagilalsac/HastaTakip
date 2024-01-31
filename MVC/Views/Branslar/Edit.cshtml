@@ -1,0 +1,50 @@
+﻿@model BransModel
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Branş Düzenle";
+}
+
+<div class="container">
+
+    <h1>@ViewData["Title"]</h1>
+
+    <h4>Branş</h4>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <form asp-action="Edit">
+		    @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row mb-3">
+                    <label asp-for="Adi" class="col-2 col-form-label"></label>
+				    <div class="col-5">
+					    <input asp-for="Adi" class="form-control" />
+					    <span asp-validation-for="Adi" class="text-danger"></span>
+				    </div>
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <div class="row mb-3">
+                    <label asp-for="DoktorlarInput" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <select multiple asp-for="DoktorlarInput" class="form-select" asp-items="ViewBag.Doktorlar"></select>
+                        <span asp-validation-for="DoktorlarInput" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+				    <div class="offset-2 col-5">
+					    <input type="submit" value="Kaydet" class="btn btn-primary" />
+					    &nbsp;&nbsp;
+                        <button type="reset" class="btn btn-outline-primary">Temizle</button>
+					    &nbsp;&nbsp;
+					    <a asp-action="Index">Listeye Dön</a>
+				    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
