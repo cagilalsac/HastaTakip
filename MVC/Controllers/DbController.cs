@@ -126,6 +126,10 @@ namespace MVC.Controllers
                             new DoktorHasta()
                             {
                                 HastaId = _db.Hastalar.SingleOrDefault(hasta => hasta.Adi == "Luna" && hasta.Soyadi == "Alsaç").Id
+                            },
+                            new DoktorHasta()
+                            {
+                                HastaId = _db.Hastalar.SingleOrDefault(hasta => hasta.Adi == "Leo" && hasta.Soyadi == "Alsaç").Id
                             }
                         }
                     },

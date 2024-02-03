@@ -1,0 +1,75 @@
+﻿@model HastaModel
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Hasta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Adi)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Adi)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Soyadi)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Soyadi)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.KimlikNo)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.KimlikNo)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.DogumTarihi)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.DogumTarihi)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Cinsiyeti)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Cinsiyeti)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Boyu)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Boyu)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Kilosu)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Kilosu)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Guid)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Guid)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+	@Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Yes" class="btn btn-danger" />&nbsp;&nbsp;
+        <a asp-action="Index" class="btn btn-success">No</a>
+    </form>
+</div>
+
+
+

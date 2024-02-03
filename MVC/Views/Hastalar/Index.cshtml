@@ -1,0 +1,94 @@
+﻿@model IEnumerable<HastaModel>
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Hastalar";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["Mesaj"] is not null)
+{
+    <p class="text-success">@TempData["Mesaj"]</p>
+}
+
+<p>
+    <a asp-action="Create">Yeni Hasta</a>
+</p>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            @* <th>
+                @Html.DisplayNameFor(model => model.AdiSoyadiTestOutput)
+            </th>
+            <th>
+                Tam Adı Test 2
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.AdiSoyadiOutput)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KimlikNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DogumTarihiOutput)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cinsiyeti)
+            </th>
+
+            @* detay view'ında gösterilecek *@
+            @* <th>
+                @Html.DisplayNameFor(model => model.BoyuOutput)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KilosuOutput)
+            </th> *@
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* <td>
+                    @Html.DisplayFor(modelItem => item.AdiSoyadiTestOutput)
+                </td>
+                <td>
+                    @item.Adi @item.Soyadi
+                </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdiSoyadiOutput)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KimlikNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DogumTarihiOutput)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cinsiyeti)
+                </td>
+
+                @* detay view'ında gösterilecek *@
+                @* <td>
+                    @Html.DisplayFor(modelItem => item.BoyuOutput)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KilosuOutput)
+                </td> *@
+
+                <td class="text-end text-warning">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="text-info">Detay</a>&nbsp;|&nbsp;
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="text-info">Düzenle</a>&nbsp;|&nbsp;
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-info">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

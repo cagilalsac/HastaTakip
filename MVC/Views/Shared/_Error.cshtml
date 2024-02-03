@@ -1,0 +1,15 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Hata!";
+}
+
+<h1 class="text-danger">@ViewData["Title"]</h1>
+@if (string.IsNullOrWhiteSpace(Model))
+{
+    <h2 class="text-danger">İşlem sırasında hata meydana geldi!</h2>
+}
+else
+{
+    <h2 class="text-danger">@Model</h2>
+}

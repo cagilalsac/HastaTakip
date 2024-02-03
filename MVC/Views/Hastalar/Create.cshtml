@@ -1,0 +1,156 @@
+﻿@using DataAccess.Enums
+
+@model HastaModel
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Yeni Hasta";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Hasta</h4>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form asp-action="Create">
+		@Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row mb-3">
+                <label asp-for="Adi" class="col-2 col-form-label"></label>
+				<div class="col-5">
+
+					@* HTML Helper *@
+					@* @Html.EditorFor(model => model.Adi) *@
+					@* Tag Helper *@
+					<input asp-for="Adi" class="form-control" />
+
+					<span asp-validation-for="Adi" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Soyadi" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="Soyadi" class="form-control" />
+					<span asp-validation-for="Soyadi" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="KimlikNo" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="KimlikNo" class="form-control" />
+					<span asp-validation-for="KimlikNo" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="DogumTarihi" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="DogumTarihi" class="form-control datetimepicker" type="text" />
+					<span asp-validation-for="DogumTarihi" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Cinsiyeti" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<select asp-for="Cinsiyeti" class="form-select select2">
+						<option value="@((int)Cinsiyetler.Kadın)">@Cinsiyetler.Kadın</option>
+						<option value="@((int)Cinsiyetler.Erkek)">@Cinsiyetler.Erkek</option>
+					</select>
+					@* mutlaka bir cinsiyet seçimi yapılacağı için validasyon mesajına gerek yok *@
+					@* <span asp-validation-for="Cinsiyeti" class="text-danger"></span> *@
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Boyu" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="Boyu" class="form-control" placeholder="Boyu metre cinsinden giriniz..." />
+					<span asp-validation-for="Boyu" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Kilosu" class="col-2 col-form-label"></label>
+				<div class="col-5">
+                    <input asp-for="Kilosu" class="form-control" placeholder="Kiloyu kilogram cinsinden giriniz..." />
+					<span asp-validation-for="Kilosu" class="text-danger"></span>
+				</div>
+            </div>
+
+            <div class="row mb-3">
+                <label asp-for="DoktorIdleriInput" class="col-2 col-form-label"></label>
+                <div class="col-5">
+
+                    @* HTML Helper *@
+                    @* @Html.ListBoxFor(model => model.DoktorIdleriInput, ViewBag.Doktorlar as MultiSelectList, new { @class = "form-select select2" }) *@
+                    @* Tag Helper *@
+                    <select multiple asp-for="DoktorIdleriInput" class="form-select select2" asp-items="ViewBag.Doktorlar"></select>
+
+                    <span asp-validation-for="DoktorIdleriInput" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+				<div class="offset-2 col-5">
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+					&nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Temizle</button>
+					&nbsp;&nbsp;
+					<a asp-action="Index">Listeye Dön</a>
+				</div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @*
+        https://xdsoft.net/jqplugins/datetimepicker
+        Bu third party kütüphaneyi wwwroot -> lib seçip sağ tıklayıp Add -> Client-Side Library dediğimizde cdnjs, jsdelivr veya unpkg
+        provider'ları (kütüphane sağlayıcıları) üzerinden bulamazsak yukarıdaki URL'den indirip ihtiyacımız olan css ve js
+        dosyalarını wwwroot -> plugins -> datetimepicker klasörüne kopyaladıktan sonra bir aşağıdaki şekilde dosya referanslarını ekliyoruz
+        ve jQuery ile datetimepicker class'lı text box'ları bu kütüphane üzerinden takvim'e dönüştürüyoruz.
+    *@
+    <link href="~/lib/jquery-datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery-datetimepicker/jquery.datetimepicker.full.min.js"></script>
+
+    @*
+        https://select2.org/
+    *@
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <script src="~/lib/select2/js/select2.min.js"></script>
+
+    <script>
+        $(function () {
+            // İngilizce tarih ve saat ile datetimepicker kullanım örneği:
+            // $('.datetimepicker').datetimepicker({
+            //     timepicker: false, // true: eğer saat de olmasını istiyorsak
+            //     format: 'm/d/Y' // ay/gün/yıl saat:dakika formatı: m/d/Y H:i
+            // });
+
+            // Türkçe tarih ve saat ile datetimepicker kullanım örneği:
+            $.datetimepicker.setLocale("tr");
+            $('.datetimepicker').datetimepicker({
+               timepicker: false,
+               format: 'd.m.Y',
+               i18n: {
+                   tr: {
+                       months: [
+                           'Ocak', 'Şubat', 'Mart', 'Nisan',
+                           'Mayıs', 'Haziran', 'Temmuz', 'Ağustos',
+                           'Eylül', 'Ekim', 'Kasım', 'Aralık'
+                       ],
+                       dayOfWeek: [
+                           "Paz", "Pzt", "Sal", "Çar",
+                           "Per", "Cum", "Cmt"
+                       ]
+                   }
+               }
+            });
+
+            $(".select2").select2();
+        });
+    </script>
+}
+
+
+

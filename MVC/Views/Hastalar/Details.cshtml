@@ -1,0 +1,87 @@
+﻿@model HastaModel
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Hasta Detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Hasta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Adi)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Adi)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Soyadi)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Soyadi)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.KimlikNo)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.KimlikNo)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.DogumTarihiOutput)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.DogumTarihiOutput)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Cinsiyeti)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Cinsiyeti)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.BoyuOutput)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.BoyuOutput)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.KilosuOutput)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.KilosuOutput)
+        </dd>
+    </dl>
+
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.DoktorlarOutput)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.DoktorlarOutput)
+        </dd>
+    </dl>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>&nbsp;|&nbsp;
+    <a asp-action="Index">Listeye Dön</a>
+</div>
+
+
+
