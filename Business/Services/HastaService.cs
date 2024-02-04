@@ -55,6 +55,8 @@ namespace Business.Services
 
 					KilosuOutput = (h.Kilosu ?? 0).ToString("N2") + " kilogram",
 					DogumTarihiOutput = h.DogumTarihi.ToString("dd.MM.yyyy"),
+
+					// ekstra many to many ilişki özellikleri
 					DoktorlarOutput = string.Join(", ", h.DoktorHastalar.OrderBy(dh => dh.Doktor.Adi).ThenBy(dh => dh.Doktor.Soyadi)
 						.Select(dh => dh.Doktor.Adi + " " + dh.Doktor.Soyadi + (dh.Doktor.UzmanMi ? " (Uzman)" : ""))),
 

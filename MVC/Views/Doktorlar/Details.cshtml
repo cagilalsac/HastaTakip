@@ -1,0 +1,20 @@
+﻿@model DoktorModel
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Doktor Detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <partial name="_Details" model="Model" />
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>&nbsp;|&nbsp;
+    <a asp-action="Index">Listeye Dön</a>
+</div>
+
+
+

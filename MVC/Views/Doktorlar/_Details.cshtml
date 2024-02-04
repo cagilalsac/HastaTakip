@@ -1,0 +1,44 @@
+﻿@model DoktorModel
+
+<h4>Doktor</h4>
+<hr />
+<dl class="row">
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.AdiSoyadiOutput)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.AdiSoyadiOutput)
+    </dd>
+</dl>
+<dl class="row">
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.UzmanMiOutput)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.UzmanMiOutput)
+    </dd>
+</dl>
+<dl class="row">
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.KlinikOutput)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.KlinikOutput)
+    </dd>
+</dl>
+<dl class="row">
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.BransOutput)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.BransOutput)
+    </dd>
+</dl>
+<dl class="row">
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.HastalarOutput)
+    </dt>
+    <dd class="col-10">
+        @Html.Raw(Model.HastalarOutput)
+    </dd>
+</dl>

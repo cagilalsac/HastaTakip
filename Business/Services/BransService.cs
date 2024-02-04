@@ -17,6 +17,9 @@ namespace Business.Services
 
     public class BransService : IBransService
     {
+        // Branş (1) ile Doktor (*, m) arasında 1 to many ilişki bulunmaktadır.
+        // Genelde 1 to many ilişkiler 1 olan taraf (Branş) üzerinden yönetilmez, many olan taraf (Doktor) üzerinden yönetilir.
+
         private readonly Db _db;
 
         public BransService(Db db)
@@ -34,8 +37,8 @@ namespace Business.Services
                     Guid = b.Guid,
                     Id = b.Id,
 
-                    // ekstra özellikler
-                    DoktorlarOutput = string.Join("<br />", b.Doktorlar.OrderBy(b => b.Adi).ThenBy(b => b.Soyadi).Select(b => b.Adi + " " + b.Soyadi)),
+                    // ekstra 1 to many ilişki özellikleri
+                    DoktorlarOutput = string.Join("<br />", b.Doktorlar.OrderBy(d => d.Adi).ThenBy(d => d.Soyadi).Select(d => d.Adi + " " + d.Soyadi)),
                     DoktorlarInput = b.Doktorlar.Select(d => d.Id).ToList()
                 });
         }
@@ -51,7 +54,7 @@ namespace Business.Services
                 Adi = model.Adi.Trim(),
                 Guid = Guid.NewGuid().ToString(),
 
-                // entity ilişki özellikleri
+                // entity 1 to many ilişki özellikleri
                 Doktorlar = _db.Doktorlar.Where(d => model.DoktorlarInput.Contains(d.Id)).ToList()
             };
 
@@ -73,7 +76,7 @@ namespace Business.Services
             // entity özellikleri
             entity.Adi = model.Adi.Trim();
 
-            // entity ilişki özellikleri
+            // entity 1 to many ilişki özellikleri
             entity.Doktorlar = _db.Doktorlar.Where(d => model.DoktorlarInput.Contains(d.Id)).ToList();
 
             _db.Branslar.Update(entity);
