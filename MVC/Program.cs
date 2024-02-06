@@ -34,6 +34,7 @@ builder.Services.AddScoped<IKlinikService, KlinikService>();
 builder.Services.AddScoped<IBransService, BransService>();
 builder.Services.AddScoped<IDoktorService, DoktorService>();
 builder.Services.AddScoped<IHastaService, HastaService>();
+builder.Services.AddScoped<IKullaniciService, KullaniciService>();
 
 builder.Services.AddSingleton<TcKimlikNoUtilBase, TcKimlikNoUtil>();
 
@@ -73,6 +74,14 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllerRoute(
+	  name: "areas",
+	  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+	);
+});
 
 app.MapControllerRoute(
     name: "default",

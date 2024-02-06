@@ -11,6 +11,9 @@ namespace DataAccess.Contexts
         public DbSet<Hasta> Hastalar { get; set; }
         public DbSet<Klinik> Klinikler { get; set; }
 
+        public DbSet<Kullanici> Kullanicilar { get; set; }
+        public DbSet<Rol> Roller { get; set; }
+
         public Db(DbContextOptions options) : base(options)
         {
             
