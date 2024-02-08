@@ -2,6 +2,7 @@ using Business.Services;
 using Business.Utilities;
 using Business.Utilities.Bases;
 using DataAccess.Contexts;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -19,6 +20,18 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = cultures;
     options.SupportedUICultures = cultures;
 });
+#endregion
+
+#region Authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(config =>
+    {
+        config.LoginPath = "/Hesaplar/Home/Login";
+        config.LogoutPath = "/Hesaplar/Home/Logout";
+        config.AccessDeniedPath = "/Hesaplar/Home/AccessDenied";
+        config.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        config.SlidingExpiration = true;
+    });
 #endregion
 
 #region Connection String
@@ -73,7 +86,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+#region Authentication
+app.UseAuthentication(); // sen kimsin?
+#endregion
+
+app.UseAuthorization(); // sen neler yapabilirsin?
 
 app.UseEndpoints(endpoints =>
 {

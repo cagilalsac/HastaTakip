@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] | Hasta Takip</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVC.styles.css" asp-append-version="true" />
 </head>
@@ -19,23 +22,47 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Klinikler" asp-action="Index">Klinikler</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Branslar" asp-action="Index">Branşlar</a>
-                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Klinikler" asp-action="Index">Klinikler</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Branslar" asp-action="Index">Branşlar</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Doktorlar" asp-action="Index">Doktorlar</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Hastalar" asp-action="Index">Hastalar</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Hesaplar" asp-controller="Home" asp-action="Register">Kayıt</a>
-                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Hastalar" asp-action="Index">Hastalar</a>
+                            </li>
+                        }
                     </ul>
+                    <div class="navbar-text">
+                        <ul class="navbar-nav me-auto">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" asp-area="Hesaplar" asp-controller="Home" asp-action="Register"><i class="bi bi-floppy"></i> Kayıt</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" asp-area="Hesaplar" asp-controller="Home" asp-action="Login"><i class="bi bi-box-arrow-in-right"></i> Giriş</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item p-2">
+                                    <span class="text-info"><i class="bi bi-person-circle"></i> @User.Identity.Name</span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" asp-area="Hesaplar" asp-controller="Home" asp-action="Logout"><i class="bi bi-box-arrow-right"></i> Çıkış</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

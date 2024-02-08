@@ -1,12 +1,14 @@
 ﻿#nullable disable
 using Business.Models;
 using Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 //Generated from Custom Template.
 namespace MVC.Controllers
 {
+    [Authorize(Roles = "admin")]
 	public class HastalarController : Controller
     {
         // TODO: Add service injections here

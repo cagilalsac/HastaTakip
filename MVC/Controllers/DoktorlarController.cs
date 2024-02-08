@@ -1,12 +1,14 @@
 ﻿#nullable disable
 using Business.Models;
 using Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 //Generated from Custom Template.
 namespace MVC.Controllers
 {
+    [Authorize]
     public class DoktorlarController : Controller
     {
         // TODO: Add service injections here
@@ -23,7 +25,8 @@ namespace MVC.Controllers
 			_hastaService = hastaService;
 		}
 
-		// GET: Doktorlar
+        // GET: Doktorlar
+        [AllowAnonymous]
 		public IActionResult Index()
         {
             List<DoktorModel> doktorList = _doktorService.Query().ToList(); // TODO: Add get collection service logic here
@@ -43,6 +46,7 @@ namespace MVC.Controllers
         }
 
         // GET: Doktorlar/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             // TODO: Add get related items service logic here to set ViewData if necessary
@@ -59,6 +63,7 @@ namespace MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public IActionResult Create(DoktorModel doktor)
         {
             if (ModelState.IsValid)
@@ -77,6 +82,7 @@ namespace MVC.Controllers
         }
 
         // GET: Doktorlar/Edit/5
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {
             DoktorModel doktor = _doktorService.Query().SingleOrDefault(d => d.Id == id); // TODO: Add get item service logic here
@@ -97,6 +103,7 @@ namespace MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(DoktorModel doktor)
         {
             if (ModelState.IsValid)
@@ -115,6 +122,7 @@ namespace MVC.Controllers
         }
 
         // GET: Doktorlar/Delete/5
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             DoktorModel doktor = _doktorService.Query().SingleOrDefault(d => d.Id == id); // TODO: Add get item service logic here
@@ -129,6 +137,7 @@ namespace MVC.Controllers
         // POST: Doktorlar/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public IActionResult DeleteConfirmed(int id)
         {
             // TODO: Add delete service logic here

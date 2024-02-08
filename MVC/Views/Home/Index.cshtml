@@ -4,5 +4,12 @@
 
 <div class="text-center">
     <h1 class="display-4">Hasta Takip</h1>
-    <p>Hasta Takip Web Uygulamasına hoşgeldiniz.</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Hasta Takip Web Uygulamasına hoşgeldin @(User.Identity.Name).</p>
+    }
+    else
+    {
+        <p>Hasta Takip Web Uygulamasına hoşgeldiniz.</p>
+    }
 </div>

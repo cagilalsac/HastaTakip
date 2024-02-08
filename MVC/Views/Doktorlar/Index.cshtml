@@ -13,9 +13,13 @@
 	<p class="text-success">@TempData["Mesaj"]</p>
 }
 
-<p>
-    <a asp-action="Create">Yeni Doktor</a>
-</p>
+@if (User.IsInRole("admin"))
+{
+	<p>
+		<a asp-action="Create">Yeni Doktor</a>
+	</p>
+}
+
 <table class="table table-dark">
     <thead>
         <tr>
@@ -56,9 +60,23 @@
 						@Html.DisplayFor(modelItem => item.HastaIdleriInput.Count) Hasta
 					</td>
 					<td class="text-end text-warning">
-						<a asp-action="Details" asp-route-id="@item.Id" class="text-info">Detay</a>&nbsp;|&nbsp;
-						<a asp-action="Edit" asp-route-id="@item.Id" class="text-info">Düzenle</a>&nbsp;|&nbsp;
-						<a asp-action="Delete" asp-route-id="@item.Id" class="text-info">Sil</a>
+
+						@if (User.Identity.IsAuthenticated)
+						{
+							<a asp-action="Details" asp-route-id="@item.Id" class="text-info">Detay</a>
+
+							if (User.IsInRole("admin"))
+							{
+								@* 1. yöntem: *@
+								@* <text>&nbsp;|&nbsp;</text> *@
+								@* 2. yöntem: *@
+								@:&nbsp;|&nbsp;
+
+								<a asp-action="Edit" asp-route-id="@item.Id" class="text-info">Düzenle</a>@:&nbsp;|&nbsp;
+								<a asp-action="Delete" asp-route-id="@item.Id" class="text-info">Sil</a>
+							}
+						}
+
 					</td>
 				</tr>
 		}

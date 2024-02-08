@@ -1,0 +1,48 @@
+﻿@model KullaniciModel
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Kullanıcı Girişi";
+}
+
+<div class="container">
+
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <form asp-action="Login">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row mb-3">
+                    <label asp-for="KullaniciAdi" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <input asp-for="KullaniciAdi" class="form-control" />
+                        <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="Sifre" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <input asp-for="Sifre" class="form-control" type="password" />
+                        <span asp-validation-for="Sifre" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="offset-2 col-5">
+                        <input type="submit" value="Gönder" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+

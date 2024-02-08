@@ -2,11 +2,13 @@
 using Business.Models;
 using Business.Services;
 using DataAccess.Results.Bases;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 //Generated from Custom Template.
 namespace MVC.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class KliniklerController : Controller
     {
         // TODO: Add service injections here
