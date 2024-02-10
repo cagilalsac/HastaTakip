@@ -38,7 +38,8 @@ namespace MVC.Areas.Hesaplar.Controllers
 					List<Claim> claims = new List<Claim>()
 					{
 						new Claim(ClaimTypes.Name, mevcutKullanici.KullaniciAdi),
-						new Claim(ClaimTypes.Role, mevcutKullanici.RolOutput.Adi)
+						new Claim(ClaimTypes.Role, mevcutKullanici.RolOutput.Adi),
+						new Claim(ClaimTypes.PrimarySid, mevcutKullanici.Id.ToString())
 					};
 					var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 					var principal = new ClaimsPrincipal(identity);

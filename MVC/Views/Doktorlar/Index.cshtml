@@ -63,6 +63,22 @@
 
 						@if (User.Identity.IsAuthenticated)
 						{
+							if (User.IsInRole("kullanıcı"))
+							{
+								if (ViewBag.SessionDoktorIdleri is not null)
+								{
+									List<int> sessionDoktorIdleri = ViewBag.SessionDoktorIdleri;
+									if (!sessionDoktorIdleri.Contains(item.Id))
+									{
+										<a asp-action="Add" asp-controller="FavoriDoktorlar" asp-route-doktorId="@item.Id" class="text-info">Favorilere Ekle</a>@:&nbsp;|&nbsp;
+									}
+								}
+								else
+								{
+									<a asp-action="Add" asp-controller="FavoriDoktorlar" asp-route-doktorId="@item.Id" class="text-info">Favorilere Ekle</a>@:&nbsp;|&nbsp;
+								}
+							}
+
 							<a asp-action="Details" asp-route-id="@item.Id" class="text-info">Detay</a>
 
 							if (User.IsInRole("admin"))

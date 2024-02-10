@@ -4,6 +4,7 @@ using Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.Utilities.Bases;
 
 //Generated from Custom Template.
 namespace MVC.Controllers
@@ -16,20 +17,24 @@ namespace MVC.Controllers
         private readonly IBransService _bransService;
         private readonly IKlinikService _klinikService;
         private readonly IHastaService _hastaService;
+        private readonly FavoriDoktorlarSessionUtilBase _favoriDoktorlarSessionUtil;
 
-		public DoktorlarController(IDoktorService doktorService, IBransService bransService, IKlinikService klinikService, IHastaService hastaService)
+		public DoktorlarController(IDoktorService doktorService, IBransService bransService, IKlinikService klinikService, IHastaService hastaService, 
+            FavoriDoktorlarSessionUtilBase favoriDoktorlarSessionUtil)
 		{
 			_doktorService = doktorService;
 			_bransService = bransService;
 			_klinikService = klinikService;
 			_hastaService = hastaService;
+			_favoriDoktorlarSessionUtil = favoriDoktorlarSessionUtil;
 		}
 
-        // GET: Doktorlar
-        [AllowAnonymous]
+		// GET: Doktorlar
+		[AllowAnonymous]
 		public IActionResult Index()
         {
             List<DoktorModel> doktorList = _doktorService.Query().ToList(); // TODO: Add get collection service logic here
+            ViewBag.SessionDoktorIdleri = _favoriDoktorlarSessionUtil.GetSession().Select(fd => fd.DoktorId).ToList();
             return View(doktorList);
         }
 

@@ -170,7 +170,7 @@ namespace MVC.Controllers
             });
 			_db.Roller.Add(new Rol()
 			{
-				Adi = "kullanici",
+				Adi = "kullanıcı",
 				Guid = Guid.NewGuid().ToString(),
 				Kullanicilar = new List<Kullanici>()
 				{

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<FavoriDoktorModel>
+
+@{
+    ViewData["Title"] = "Favori Doktorlarım";
+    string count = Model.Count() > 0 ? Model.Count() + " doktor bulundu." : "Doktor bulunamadı.";
+}
+
+<div class="container">
+    <h3>@ViewData["Title"]</h3>
+    <hr />
+    <p class="text-success">@count</p>
+    @if (Model.Any())
+    {
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.DoktorAdiSoyadi)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr><td>@Html.DisplayFor(model => item.DoktorAdiSoyadi)</td></tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

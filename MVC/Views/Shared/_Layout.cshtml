@@ -40,6 +40,12 @@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Hastalar" asp-action="Index">Hastalar</a>
                             </li>
                         }
+                        @if (User.IsInRole("kullanıcı"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="FavoriDoktorlar" asp-action="Index">Favori Doktorlarım</a>
+                            </li>
+                        }
                     </ul>
                     <div class="navbar-text">
                         <ul class="navbar-nav me-auto">

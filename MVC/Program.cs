@@ -5,6 +5,8 @@ using DataAccess.Contexts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using MVC.Utilities;
+using MVC.Utilities.Bases;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +36,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 #endregion
 
+#region Session
+builder.Services.AddSession(config =>
+{
+    config.IdleTimeout = TimeSpan.FromMinutes(60);
+    config.IOTimeout = Timeout.InfiniteTimeSpan;
+});
+#endregion
+
 #region Connection String
 var connectionString = builder.Configuration.GetConnectionString("Db");
 #endregion
@@ -50,6 +60,9 @@ builder.Services.AddScoped<IHastaService, HastaService>();
 builder.Services.AddScoped<IKullaniciService, KullaniciService>();
 
 builder.Services.AddSingleton<TcKimlikNoUtilBase, TcKimlikNoUtil>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<FavoriDoktorlarSessionUtilBase, FavoriDoktorlarSessionUtil>();
 
 // AddScoped: istek (request) boyunca objenin referansýný (genelde interface veya abstract class) kullandýðýmýz yerde obje (somut class'tan oluþturulacak)
 // bir kere oluþturulur ve yanýt (response) dönene kadar bu obje hayatta kalýr.
@@ -91,6 +104,10 @@ app.UseAuthentication(); // sen kimsin?
 #endregion
 
 app.UseAuthorization(); // sen neler yapabilirsin?
+
+#region Session
+app.UseSession();
+#endregion
 
 app.UseEndpoints(endpoints =>
 {
