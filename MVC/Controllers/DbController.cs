@@ -44,6 +44,9 @@ namespace MVC.Controllers
 				_db.Roller.RemoveRange(_db.Roller.ToList());
 				_db.Database.ExecuteSqlRaw("dbcc CHECKIDENT ('Roller', RESEED, 0)");
             }
+
+            _db.Sehirler.RemoveRange(_db.Sehirler.ToList());
+            _db.Ulkeler.RemoveRange(_db.Ulkeler.ToList());
             #endregion
 
             #region Verilerin Eklenmesi
@@ -56,6 +59,41 @@ namespace MVC.Controllers
             {
                 Adi = "Psikiyatri",
                 Guid = Guid.NewGuid().ToString()
+            });
+
+            _db.Ulkeler.Add(new Ulke()
+            {
+                Adi = "Türkiye",
+                Sehirler = new List<Sehir>()
+                {
+                    new Sehir()
+                    {
+                        Adi = "İstanbul"
+                    },
+                    new Sehir()
+                    {
+                        Adi = "İzmir"
+                    },
+                    new Sehir()
+                    {
+                        Adi = "Ankara"
+                    }
+                }
+            });
+            _db.Ulkeler.Add(new Ulke()
+            {
+                Adi = "Amerika Birleşik Devletleri",
+                Sehirler = new List<Sehir>()
+                {
+                    new Sehir()
+                    {
+                        Adi = "Los Angeles"
+                    },
+                    new Sehir()
+                    {
+                        Adi = "New York"
+                    }
+                }
             });
 
             _db.Hastalar.Add(new Hasta()
@@ -121,7 +159,10 @@ namespace MVC.Controllers
                             {
                                 HastaId = _db.Hastalar.SingleOrDefault(hasta => hasta.Adi == "Leo" && hasta.Soyadi == "Alsaç").Id
                             }
-                        }
+                        },
+
+                        UlkeId = _db.Ulkeler.SingleOrDefault(u => u.Adi == "Türkiye").Id,
+                        SehirId = _db.Sehirler.SingleOrDefault(s => s.Adi == "İstanbul").Id
                     },
                     new Doktor()
                     {
@@ -140,7 +181,9 @@ namespace MVC.Controllers
                             {
                                 HastaId = _db.Hastalar.SingleOrDefault(hasta => hasta.Adi == "Leo" && hasta.Soyadi == "Alsaç").Id
                             }
-                        }
+                        },
+                        UlkeId = _db.Ulkeler.SingleOrDefault(u => u.Adi == "Türkiye").Id,
+                        SehirId = _db.Sehirler.SingleOrDefault(s => s.Adi == "İstanbul").Id
                     },
                     new Doktor()
                     {
@@ -148,7 +191,9 @@ namespace MVC.Controllers
                         Adi = "Gülseren",
                         Soyadi = "Budayıcıoğlu",
                         UzmanMi = true,
-                        BransId = _db.Branslar.SingleOrDefault(brans => brans.Adi == "Psikiyatri").Id
+                        BransId = _db.Branslar.SingleOrDefault(brans => brans.Adi == "Psikiyatri").Id,
+                        UlkeId = _db.Ulkeler.SingleOrDefault(u => u.Adi == "Amerika Birleşik Devletleri").Id,
+                        SehirId = _db.Sehirler.SingleOrDefault(s => s.Adi == "Los Angeles").Id
                     }
                 }
             });
@@ -184,7 +229,7 @@ namespace MVC.Controllers
 				}
 			});
 
-			_db.SaveChanges();
+            _db.SaveChanges();
             #endregion
 
             return Content("<label style=\"color:red;\">Database seed successful.</label>", "text/html");

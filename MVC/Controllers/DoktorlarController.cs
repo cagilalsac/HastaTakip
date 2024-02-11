@@ -17,15 +17,19 @@ namespace MVC.Controllers
         private readonly IBransService _bransService;
         private readonly IKlinikService _klinikService;
         private readonly IHastaService _hastaService;
+        private readonly UlkeServiceBase _ulkeService;
+        private readonly SehirServiceBase _sehirService;
         private readonly FavoriDoktorlarSessionUtilBase _favoriDoktorlarSessionUtil;
 
-		public DoktorlarController(IDoktorService doktorService, IBransService bransService, IKlinikService klinikService, IHastaService hastaService, 
-            FavoriDoktorlarSessionUtilBase favoriDoktorlarSessionUtil)
+		public DoktorlarController(IDoktorService doktorService, IBransService bransService, IKlinikService klinikService, IHastaService hastaService,
+			UlkeServiceBase ulkeService, SehirServiceBase sehirService, FavoriDoktorlarSessionUtilBase favoriDoktorlarSessionUtil)
 		{
 			_doktorService = doktorService;
 			_bransService = bransService;
 			_klinikService = klinikService;
 			_hastaService = hastaService;
+			_ulkeService = ulkeService;
+            _sehirService = sehirService;
 			_favoriDoktorlarSessionUtil = favoriDoktorlarSessionUtil;
 		}
 
@@ -59,6 +63,9 @@ namespace MVC.Controllers
             ViewData["KlinikId"] = new SelectList(_klinikService.GetList(), "Id", "Adi");
 
             ViewBag.Hastalar = new MultiSelectList(_hastaService.Query().ToList(), "Id", "AdiSoyadiOutput");
+
+            ViewBag.Ulkeler = new SelectList(_ulkeService.GetList(), "Id", "Adi");
+            ViewBag.Sehirler = new SelectList(new List<SehirModel>(), "Id", "Adi");
 
             return View();
         }

@@ -48,7 +48,10 @@ namespace Business.Services
                 // many to many
                 HastalarOutput = string.Join("<br />", d.DoktorHastalar.OrderBy(dh => dh.Hasta.Adi).ThenBy(dh => dh.Hasta.Soyadi)
                     .Select(dh => dh.Hasta.Adi + " " + dh.Hasta.Soyadi)),
-                HastaIdleriInput = d.DoktorHastalar.Select(dh => dh.HastaId).ToList()
+                HastaIdleriInput = d.DoktorHastalar.Select(dh => dh.HastaId).ToList(),
+
+                UlkeOutput = d.Ulke.Adi,
+                SehirOutput = d.Sehir.Adi
                 #endregion
             });
         }

@@ -37,7 +37,13 @@ namespace MVC.Controllers
             {
                 FavoriDoktorModel favoriDoktor = new FavoriDoktorModel()
                 {
-                    DoktorAdiSoyadi = doktor.AdiSoyadiOutput,
+                    Doktor = new DoktorModel()
+                    {
+                        AdiSoyadiOutput = doktor.AdiSoyadiOutput,
+                        KlinikOutput = doktor.KlinikOutput,
+                        BransOutput = doktor.BransOutput,
+                        UzmanMiOutput = doktor.UzmanMiOutput
+                    },
                     DoktorId = doktor.Id,
                     HastaId = hastaId
                 };
@@ -46,6 +52,29 @@ namespace MVC.Controllers
                 TempData["Mesaj"] = $"\"{doktor.AdiSoyadiOutput}\" favorilere eklendi.";
             }
             return RedirectToAction("Index", "Doktorlar");
+        }
+
+        public IActionResult Delete(int hastaId, int doktorId)
+        {
+            List<FavoriDoktorModel> favoriDoktorlar = _favoriDoktorlarSessionUtil.GetSession();
+
+            // 1. yöntem:
+            //FavoriDoktorModel favoriDoktor = favoriDoktorlar.FirstOrDefault(fd => fd.HastaId == hastaId && fd.DoktorId == doktorId);
+            //if (favoriDoktor is not null)
+            //    favoriDoktorlar.Remove(favoriDoktor);
+            // 2. yöntem:
+            favoriDoktorlar.RemoveAll(fd => fd.HastaId == hastaId && fd.DoktorId == doktorId);
+
+            _favoriDoktorlarSessionUtil.SetSession(favoriDoktorlar);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Clear(int hastaId)
+        {
+            List<FavoriDoktorModel> favoriDoktorlar = _favoriDoktorlarSessionUtil.GetSession();
+            favoriDoktorlar.RemoveAll(fd => fd.HastaId == hastaId);
+            _favoriDoktorlarSessionUtil.SetSession(favoriDoktorlar);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -32,5 +32,10 @@ namespace MVC.Utilities.Bases
 			string json = JsonConvert.SerializeObject(list);
 			_httpContextAccessor.HttpContext.Session.SetString(_sessionKey, json);
 		}
+
+		/* Diğer kullanılabilecek Session methodları:
+		_httpContextAccessor.HttpContext.Session.Remove(_sessionKey);
+		_httpContextAccessor.HttpContext.Session.Clear();
+		*/
 	}
 }

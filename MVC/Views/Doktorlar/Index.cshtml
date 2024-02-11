@@ -38,6 +38,12 @@
 			<th>
 				@Html.DisplayNameFor(model => model.HastaIdleriInput)
 			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.UlkeOutput)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SehirOutput)
+			</th>
             <th></th>
         </tr>
     </thead>
@@ -58,6 +64,12 @@
 					</td>
 					<td>
 						@Html.DisplayFor(modelItem => item.HastaIdleriInput.Count) Hasta
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.UlkeOutput)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.SehirOutput)
 					</td>
 					<td class="text-end text-warning">
 

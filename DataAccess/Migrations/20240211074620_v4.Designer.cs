@@ -4,6 +4,7 @@ using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(Db))]
-    partial class DbModelSnapshot : ModelSnapshot
+    [Migration("20240211074620_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,16 +68,10 @@ namespace DataAccess.Migrations
                     b.Property<int?>("KlinikId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SehirId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Soyadi")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("UlkeId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("UzmanMi")
                         .HasColumnType("bit");
@@ -84,10 +81,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("BransId");
 
                     b.HasIndex("KlinikId");
-
-                    b.HasIndex("SehirId");
-
-                    b.HasIndex("UlkeId");
 
                     b.ToTable("Doktorlar");
                 });
@@ -296,21 +289,9 @@ namespace DataAccess.Migrations
                         .WithMany("Doktorlar")
                         .HasForeignKey("KlinikId");
 
-                    b.HasOne("DataAccess.Entities.Sehir", "Sehir")
-                        .WithMany("Doktorlar")
-                        .HasForeignKey("SehirId");
-
-                    b.HasOne("DataAccess.Entities.Ulke", "Ulke")
-                        .WithMany("Doktorlar")
-                        .HasForeignKey("UlkeId");
-
                     b.Navigation("Brans");
 
                     b.Navigation("Klinik");
-
-                    b.Navigation("Sehir");
-
-                    b.Navigation("Ulke");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.DoktorHasta", b =>
@@ -379,15 +360,8 @@ namespace DataAccess.Migrations
                     b.Navigation("Kullanicilar");
                 });
 
-            modelBuilder.Entity("DataAccess.Entities.Sehir", b =>
-                {
-                    b.Navigation("Doktorlar");
-                });
-
             modelBuilder.Entity("DataAccess.Entities.Ulke", b =>
                 {
-                    b.Navigation("Doktorlar");
-
                     b.Navigation("Sehirler");
                 });
 #pragma warning restore 612, 618

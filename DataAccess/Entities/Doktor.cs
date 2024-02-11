@@ -26,5 +26,11 @@ namespace DataAccess.Entities
         public Brans Brans { get; set; } // 1 to many has a relationship
 
         public List<DoktorHasta> DoktorHastalar { get; set; } // many to many has a relationship
+
+        public int? SehirId { get; set; }
+        public Sehir Sehir { get; set; }
+
+        public int? UlkeId { get; set; }
+        public Ulke Ulke { get; set; }
     }
 }

@@ -68,6 +68,25 @@
 				</div>
 			</div>
 
+			<div class="row mb-3">
+				<label asp-for="UlkeId" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<select asp-for="UlkeId" class="form-select" asp-items="ViewBag.Ulkeler">
+						<option value="">-- Ülke Seçiniz --</option>
+					</select>
+					<span asp-validation-for="UlkeId" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label asp-for="SehirId" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<select asp-for="SehirId" class="form-select" asp-items="ViewBag.Sehirler">
+						<option value="">-- Ülke Seçiniz --</option>
+					</select>
+					<span asp-validation-for="SehirId" class="text-danger"></span>
+				</div>
+			</div>
+
             <div class="row mb-3">
 				<div class="offset-2 col-5">
 					<input type="submit" value="Kaydet" class="btn btn-primary" />

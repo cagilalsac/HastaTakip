@@ -11,16 +11,29 @@
     <p class="text-success">@count</p>
     @if (Model.Any())
     {
+        <a asp-action="Clear" asp-route-hastaId="@Model.FirstOrDefault().HastaId">Temizle</a>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.DoktorAdiSoyadi)</th>
+                    <th>@Html.DisplayNameFor(model => model.Doktor.AdiSoyadiOutput)</th>
+                    <th>@Html.DisplayNameFor(model => model.Doktor.KlinikOutput)</th>
+                    <th>@Html.DisplayNameFor(model => model.Doktor.BransOutput)</th>
+                    <th>@Html.DisplayNameFor(model => model.Doktor.UzmanMiOutput)</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr><td>@Html.DisplayFor(model => item.DoktorAdiSoyadi)</td></tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.Doktor.AdiSoyadiOutput)</td>
+                        <td>@Html.DisplayFor(model => item.Doktor.KlinikOutput)</td>
+                        <td>@Html.DisplayFor(model => item.Doktor.BransOutput)</td>
+                        <td>@Html.DisplayFor(model => item.Doktor.UzmanMiOutput)</td>
+                        <td>
+                            <a asp-action="Delete" asp-route-hastaId="@item.HastaId" asp-route-doktorId="@item.DoktorId">Favorilerden Çıkar</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

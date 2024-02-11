@@ -10,6 +10,6 @@ namespace Business.Models
         public int DoktorId { get; set; }
 
         [DisplayName("Doktor")]
-        public string DoktorAdiSoyadi { get; set; }
+        public DoktorModel Doktor { get; set; }
     }
 }

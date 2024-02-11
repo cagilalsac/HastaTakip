@@ -28,6 +28,14 @@ namespace Business.Models
         [Required(ErrorMessage = "{0} zorunludur!")]
         [DisplayName("Branş")]
         public int? BransId { get; set; }
+
+        [DisplayName("Ülke")]
+		[Required(ErrorMessage = "{0} zorunludur!")]
+		public int? UlkeId { get; set; }
+
+        [DisplayName("Şehir")]
+		[Required(ErrorMessage = "{0} zorunludur!")]
+		public int? SehirId { get; set; }
         #endregion
 
         #region Ekstra Özellikler
@@ -48,6 +56,12 @@ namespace Business.Models
 
         [DisplayName("Hastalar")]
         public List<int> HastaIdleriInput { get; set; }
+
+        [DisplayName("Ülke")]
+        public string UlkeOutput { get; set; }
+
+        [DisplayName("Şehir")]
+        public string SehirOutput { get; set; }
         #endregion
     }
 }
