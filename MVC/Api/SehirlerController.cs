@@ -30,8 +30,8 @@ namespace MVC.Api
         }
 
         // GET: api/Sehirler/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("{id}")] // route'u route değeri (id) üzerinden değiştirdik, bu action'ı ancak "api/Sehirler/5" şeklinde çağırabiliriz
+		public IActionResult Get(int id)
         {
             SehirModel sehir = _sehirService.GetItem(id); // TODO: Add get item service logic here
 			if (sehir == null)
@@ -48,7 +48,8 @@ namespace MVC.Api
         // 1. yöntem:
         //[HttpGet("GetSehirler/{ulkeId}")]
         // 2. yöntem:
-        [HttpGet("{action}/{ulkeId}")]
+        [HttpGet("{action}/{ulkeId}")] // route'u route değeri (ulkeId) üzerinden değiştirdik,
+                                       // bu action'ı ancak "api/Sehirler/GetSehirler/5" şeklinde çağırabiliriz
 		public IActionResult GetSehirler(int ulkeId)
         {
             List<SehirModel> sehirler = _sehirService.GetList(ulkeId);
@@ -60,5 +61,14 @@ namespace MVC.Api
             // 2. yöntem:
             return Ok(sehirler);
 		}
-	}
+
+
+
+        // Api controller yerine MVC controller oluşturmuş olsaydık:
+        //public IActionResult GetSehirler(int ulkeId) // action
+        //{
+            //List<SehirModel> sehirler = _sehirService.GetList(ulkeId);
+            //return Json(sehirler);
+        //}
+    }
 }
