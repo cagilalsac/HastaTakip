@@ -64,6 +64,25 @@
 				</div>
 			</div>
 
+			<div class="row mb-3">
+				<label asp-for="UlkeId" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<select asp-for="UlkeId" class="form-select" asp-items="ViewBag.Ulkeler" id="ulkeler">
+						<option value="">-- Ülke Seçiniz --</option>
+					</select>
+					<span asp-validation-for="UlkeId" class="text-danger ulkelermesaj"></span>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label asp-for="SehirId" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<select asp-for="SehirId" class="form-select" asp-items="ViewBag.Sehirler" id="sehirler">
+						<option value="">-- Ülke Seçiniz --</option>
+					</select>
+					<span asp-validation-for="SehirId" class="text-danger"></span>
+				</div>
+			</div>
+
             <div class="row mb-3">
 				<div class="offset-2 col-5">
 					<input type="submit" value="Kaydet" class="btn btn-primary" />
@@ -80,6 +99,37 @@
 @section Scripts {
 	@* Client-Side Validation: *@
 	<partial name="_ValidationScriptsPartial" />
+
+	@* AJAX: *@
+	<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+	<script>
+		$(function () {
+			$("#ulkeler").change(function () {
+				$("#sehirler").empty();
+				var seciliUlkeId = $("#ulkeler").val();
+				if (seciliUlkeId == "") {
+					$(".ulkelermesaj").text("Ülke seçiniz!");
+					$("#sehirler").append('<option value="">-- Ülke Seçiniz --</option>');
+				} else {
+					$(".ulkelermesaj").text("");
+					$("#sehirler").append('<option value="">-- Şehir Seçiniz --</option>');
+					$.getJSON("/api/Sehirler/GetSehirler/" + seciliUlkeId)
+						.done(function (sehirlerJson) { // success: OK (200 HTTP Status Code), sehirlerJson: sunucudan yanıt olarak dönen JSON veri
+							for (var sehir of sehirlerJson) { // Javascript foreach
+								$("#sehirler").append('<option value="' + sehir.id + '">' + sehir.adi + '</option>');
+							}
+						})
+						.fail(function (xhr, status) {
+							console.log("Status: " + status);
+							console.log("XHR:");
+							console.log(xhr);
+							alert("İşlem sırasında hata meydana geldi!");
+						});
+				}
+			});
+		});
+	</script>
 }
 
 

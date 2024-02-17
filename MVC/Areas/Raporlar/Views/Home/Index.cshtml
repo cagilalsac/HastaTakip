@@ -1,0 +1,79 @@
+﻿@model IEnumerable<RaporModel>
+@*Generated from Custom Template.*@
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Rapor";
+    int count = Model is null ? 0 : Model.Count();
+    string countMessage = count == 0 ? "Kayıt bulunamadı." : $"{count} kayıt bulundu.";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-6">
+        @countMessage
+    </div>
+    <div class="col-6">
+        <a asp-action="ExportToExcel" class="btn btn-secondary"><i class="bi bi-file-earmark-excel"></i> Excel'e Aktar</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DoktorAdiSoyadi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoktorLokasyonu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoktorKlinigi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoktorBransi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HastaAdiSoyadi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HastaDogumTarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HastaCinsiyeti)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoktorAdiSoyadi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoktorLokasyonu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoktorKlinigi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoktorBransi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HastaAdiSoyadi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HastaDogumTarihi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HastaCinsiyeti)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

@@ -36,6 +36,9 @@ namespace Business.Services
                 UzmanMi = d.UzmanMi,
                 Guid = d.Guid,
                 Id = d.Id,
+
+                UlkeId = d.UlkeId,
+                SehirId = d.SehirId,
                 #endregion
 
                 #region Ekstra Özellikler
@@ -82,7 +85,10 @@ namespace Business.Services
                 DoktorHastalar = model.HastaIdleriInput?.Select(hastaId => new DoktorHasta()
                 {
                     HastaId = hastaId,
-                }).ToList()
+                }).ToList(),
+
+                UlkeId = model.UlkeId,
+                SehirId = model.SehirId
             };
 
             _db.Add(entity);
@@ -120,6 +126,9 @@ namespace Business.Services
             {
                 HastaId = hastaId,
             }).ToList();
+
+            entity.UlkeId = model.UlkeId;
+            entity.SehirId = model.SehirId;
 
             _db.Update(entity);
             _db.SaveChanges();

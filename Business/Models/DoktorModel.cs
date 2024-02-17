@@ -30,11 +30,9 @@ namespace Business.Models
         public int? BransId { get; set; }
 
         [DisplayName("Ülke")]
-		[Required(ErrorMessage = "{0} zorunludur!")]
 		public int? UlkeId { get; set; }
 
         [DisplayName("Şehir")]
-		[Required(ErrorMessage = "{0} zorunludur!")]
 		public int? SehirId { get; set; }
         #endregion
 

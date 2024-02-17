@@ -90,6 +90,10 @@ namespace MVC.Controllers
 			ViewData["BransId"] = new SelectList(_bransService.Query().ToList(), "Id", "Adi");
 			ViewData["KlinikId"] = new SelectList(_klinikService.GetList(), "Id", "Adi");
 			ViewBag.Hastalar = new MultiSelectList(_hastaService.Query().ToList(), "Id", "AdiSoyadiOutput");
+
+			ViewBag.Ulkeler = new SelectList(_ulkeService.GetList(), "Id", "Adi");
+			ViewBag.Sehirler = new SelectList(_sehirService.GetList(doktor.UlkeId), "Id", "Adi");
+
 			return View(doktor);
         }
 
@@ -107,6 +111,10 @@ namespace MVC.Controllers
 			ViewData["BransId"] = new SelectList(_bransService.Query().ToList(), "Id", "Adi");
 			ViewData["KlinikId"] = new SelectList(_klinikService.GetList(), "Id", "Adi");
 			ViewBag.Hastalar = new MultiSelectList(_hastaService.Query().ToList(), "Id", "AdiSoyadiOutput");
+
+			ViewBag.Ulkeler = new SelectList(_ulkeService.GetList(), "Id", "Adi");
+			ViewBag.Sehirler = new SelectList(_sehirService.GetList(doktor.UlkeId), "Id", "Adi");
+
 			return View(doktor);
         }
 
@@ -130,6 +138,10 @@ namespace MVC.Controllers
 			ViewData["BransId"] = new SelectList(_bransService.Query().ToList(), "Id", "Adi");
 			ViewData["KlinikId"] = new SelectList(_klinikService.GetList(), "Id", "Adi");
 			ViewBag.Hastalar = new MultiSelectList(_hastaService.Query().ToList(), "Id", "AdiSoyadiOutput");
+
+			ViewBag.Ulkeler = new SelectList(_ulkeService.GetList(), "Id", "Adi");
+			ViewBag.Sehirler = new SelectList(_sehirService.GetList(doktor.UlkeId), "Id", "Adi");
+
 			return View(doktor);
         }
 

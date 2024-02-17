@@ -60,6 +60,7 @@ builder.Services.AddScoped<IHastaService, HastaService>();
 builder.Services.AddScoped<IKullaniciService, KullaniciService>();
 builder.Services.AddScoped<UlkeServiceBase, UlkeService>();
 builder.Services.AddScoped<SehirServiceBase, SehirService>();
+builder.Services.AddScoped<IRaporService, RaporService>();
 
 builder.Services.AddSingleton<TcKimlikNoUtilBase, TcKimlikNoUtil>();
 
