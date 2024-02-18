@@ -1,6 +1,9 @@
-﻿using Business.Services;
+﻿using Business.Models;
+using Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.Models;
 using OfficeOpenXml;
 
 namespace MVC.Areas.Raporlar.Controllers
@@ -10,21 +13,35 @@ namespace MVC.Areas.Raporlar.Controllers
 	public class HomeController : Controller
 	{
 		private readonly IRaporService _raporService;
+		private readonly IKlinikService _klinikService;
 
-		public HomeController(IRaporService raporService)
+        public HomeController(IRaporService raporService, IKlinikService klinikService)
+        {
+            _raporService = raporService;
+            _klinikService = klinikService;
+        }
+
+        public IActionResult Index()
 		{
-			_raporService = raporService;
+			var rapor = _raporService.GetList();
+			var raporViewModel = new RaporViewModel()
+			{
+				Rapor = rapor,
+				Klinikler = new SelectList(_klinikService.GetList(), "Id", "Adi")
+			};
+			return View(raporViewModel);
 		}
 
-		public IActionResult Index()
+		[HttpPost]
+		public IActionResult Index(RaporFiltreModel filtre)
 		{
-			var rapor = _raporService.Query(true).ToList();
-			return View(rapor);
+			var rapor = _raporService.GetList(filtre);
+			return PartialView("_Rapor", rapor);
 		}
 
 		public async Task ExportToExcel() // NuGet Kütüphaneleri: EPPlus veya SpreadSheetLight
 		{
-            var rapor = _raporService.Query(true).ToList();
+            var rapor = _raporService.GetList();
 			if (rapor.Any())
 			{
 				ExcelPackage.LicenseContext = LicenseContext.NonCommercial;

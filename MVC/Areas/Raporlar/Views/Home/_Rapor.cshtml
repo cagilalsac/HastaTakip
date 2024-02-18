@@ -1,0 +1,77 @@
+﻿@model List<RaporModel>
+
+@{
+    int count = Model is null ? 0 : Model.Count;
+    string countMessage = count == 0 ? "Kayıt bulunamadı." : $"{count} kayıt bulundu.";
+}
+
+<div class="row">
+    <div class="col-12">
+        <p class="text-success">@countMessage</p>
+    </div>
+</div>
+
+@if (count > 0)
+{
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="ExportToExcel" class="btn btn-secondary"><i class="bi bi-file-earmark-excel"></i> Tüm Verileri Excel'e Aktar</a>
+        </div>
+    </div>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().DoktorAdiSoyadi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().DoktorLokasyonu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().DoktorKlinigi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().DoktorBransi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().HastaAdiSoyadi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().HastaDogumTarihi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().HastaCinsiyeti)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoktorAdiSoyadi)
+                    </td>
+                    <td>
+                        @Html.Raw(item.DoktorLokasyonu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoktorKlinigi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoktorBransi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HastaAdiSoyadi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HastaDogumTarihi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HastaCinsiyeti)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

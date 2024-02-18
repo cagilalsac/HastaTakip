@@ -1,79 +1,93 @@
-﻿@model IEnumerable<RaporModel>
+﻿@model RaporViewModel
 @*Generated from Custom Template.*@
 @*Model namespace using directive should be added to _ViewImports.cshtml.*@
 
 @{
     ViewData["Title"] = "Rapor";
-    int count = Model is null ? 0 : Model.Count();
-    string countMessage = count == 0 ? "Kayıt bulunamadı." : $"{count} kayıt bulundu.";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-6">
-        @countMessage
+<form asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rapor">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <div class="row mb-3">
+        <div class="col-2">
+            @Html.DisplayNameFor(model => model.Filtre.DoktorAdiSoyadi)
+        </div>
+        <div class="col-4">
+            <input asp-for="Filtre.DoktorAdiSoyadi" class="form-control" placeholder="Doktor adı soyadı" />
+        </div>
+        <div class="col-2">
+            @Html.DisplayNameFor(model => model.Filtre.DoktorKlinikId)
+        </div>
+        <div class="col-4">
+            <select asp-for="Filtre.DoktorKlinikId" class="form-select select2" asp-items="@Model.Klinikler">
+                <option value="">-- Tüm Klinikler --</option>
+            </select>
+        </div>
     </div>
-    <div class="col-6">
-        <a asp-action="ExportToExcel" class="btn btn-secondary"><i class="bi bi-file-earmark-excel"></i> Excel'e Aktar</a>
+    <div class="row mb-3">
+        <div class="col-2">
+            @Html.DisplayNameFor(model => model.Filtre.HastaAdiSoyadi)
+        </div>
+        <div class="col-4">
+            <input asp-for="Filtre.HastaAdiSoyadi" class="form-control" placeholder="Hasta adı soyadı" />
+        </div>
+        <div class="col-2">
+            @Html.DisplayNameFor(model => model.Filtre.HastaDogumTarihiBaslangic)
+        </div>
+        <div class="col-4">
+            <div class="input-group">
+                <input asp-for="Filtre.HastaDogumTarihiBaslangic" type="text" class="form-control datetimepicker" placeholder="Başlangıç tarihi" />
+                <span class="input-group-text">-</span>
+                <input asp-for="Filtre.HastaDogumTarihiBitis" type="text" class="form-control datetimepicker" placeholder="Bitiş tarihi" />
+            </div>
+        </div>
     </div>
-</div>
+    <div class="row mb-3">
+        <div class="offset-2 col-10">
+            <button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Filtrele</button>
+            &nbsp;&nbsp;
+            <a asp-action="Index" class="btn btn-warning"><i class="bi bi-arrow-clockwise"></i> Temizle</a>
+        </div>
+    </div>
+    <hr />
+    
+    <div id="rapor">
+        <partial name="_Rapor" model="Model.Rapor" />
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DoktorAdiSoyadi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoktorLokasyonu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoktorKlinigi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoktorBransi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HastaAdiSoyadi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HastaDogumTarihi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HastaCinsiyeti)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoktorAdiSoyadi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoktorLokasyonu)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoktorKlinigi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoktorBransi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HastaAdiSoyadi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HastaDogumTarihi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HastaCinsiyeti)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+</form>
 
+@section Scripts {
+    <link href="~/lib/jquery-datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery-datetimepicker/jquery.datetimepicker.full.min.js"></script>
 
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <script src="~/lib/select2/js/select2.min.js"></script>
 
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script>
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                timepicker: false,
+                format: 'd.m.Y',
+                i18n: {
+                    tr: {
+                        months: [
+                            'Ocak', 'Şubat', 'Mart', 'Nisan',
+                            'Mayıs', 'Haziran', 'Temmuz', 'Ağustos',
+                            'Eylül', 'Ekim', 'Kasım', 'Aralık'
+                        ],
+                        dayOfWeek: [
+                            "Paz", "Pzt", "Sal", "Çar",
+                            "Per", "Cum", "Cmt"
+                        ]
+                    }
+                }
+            });
+
+            $(".select2").select2();
+        });
+    </script>
+}
